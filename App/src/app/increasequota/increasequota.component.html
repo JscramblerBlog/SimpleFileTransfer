@@ -1,0 +1,29 @@
+<!--
+The template defines the view of the component - what is actually rendered.
+In NativeScript applications the template is defined with XML using NativeScript UI elements.
+It is different from HTML. So instead of <input>, <span>, <div> etc. - we have <TextField>, <Label> and layouts.
+The important thing is that although the elements are different - all of the Angular’s template syntax works exactly the same.
+So you can still use template expressions, bindings, templates as well as all the built-in directives.
+-->
+
+<!--
+The ActionBar is the NativeScript common abstraction over the Android ActionBar and iOS NavigationBar.
+http://docs.nativescript.org/ui/action-bar
+-->
+<ActionBar title="Increase Quota" class="action-bar">
+</ActionBar>
+
+
+<!-- <FlexboxLayout> -->
+	<StackLayout class="form" >
+			<Label class="h3 p-15 details-title" [text]="quotaInMB" ></Label>
+			<Label class="h3 p-15 details-title" text="Enter required limit in MB" ></Label>
+
+		<TextField hint="Limit" keyboardType="number" autocorrect="false" autocapitalizationType="none" [(ngModel)]="quota"
+		 class="input input-border" maxLength= "3"></TextField>
+		
+
+		<Button text="Submit" class="btn btn-primary" (tap)="submit()"></Button>
+		
+	</StackLayout>
+<!-- </FlexboxLayout> -->

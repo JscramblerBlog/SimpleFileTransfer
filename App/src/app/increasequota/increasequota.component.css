@@ -1,0 +1,20 @@
+
+  StackLayout {   
+    padding: 100 16;
+    align-items: center;
+    justify-content: center;    
+    background-color: #2f4f4f;
+  } 
+  Button, TextField {
+    margin-bottom: 10;
+  }
+  .btn-primary {
+    background-color: #CB1D00;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  TextField {
+    placeholder-color: #FFFFFF;
+    color: #FFFFFF;
+  }
+  
