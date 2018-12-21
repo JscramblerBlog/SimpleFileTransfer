@@ -17,7 +17,9 @@ import { Page } from 'ui/page'
 export class DetailsComponent implements OnInit {
     
     data: any ={};
-    remainingSpace: any;
+    remainingSpace: number;
+    occupiedSpace: number;
+    storageLimit: number;
     
     constructor(private detailsSrv: UserDetailsService,  public uploadServ: UploadService, private fileSrv: LocalFileService, private page: Page) { 
         this.page.on("navigatedTo", () => {
@@ -62,7 +64,7 @@ export class DetailsComponent implements OnInit {
             let results = res.object.get('results');
             console.dir(results);            
             console.dir(results[0].file);           
-            if(this.fileSrv.getFileSize(results[0].file) < parseInt(this.remainingSpace) ){
+            if(this.fileSrv.getFileSize(results[0].file) < this.remainingSpace ){
                 this.uploadServ.upload(results[0].file).then(res => {
                     alert('File Uploaded');
                     this.getUserDetails();        
@@ -90,12 +92,14 @@ export class DetailsComponent implements OnInit {
     }
     getUserDetails(){
         this.detailsSrv.getDetails().then(res => {
-            this.remainingSpace = res["remainingSpace"];
+            this.remainingSpace = <number>res["remainingSpace"];
+            this.occupiedSpace = <number>res["occupiedSpace"];
+            this.storageLimit = <number>res["storageLimit"];
            
             this.data = {
-                "storageLimit": 'Storage Limit: ' + (parseFloat(res["storageLimit"])/1048578).toFixed(2) + ' MB',
-                "occupiedSpace": 'Occupied Space: ' + (parseFloat(res["occupiedSpace"])/1048578).toFixed(2) + ' MB',
-                "remainingSpace": 'Remaining Space: ' + (parseFloat(res["remainingSpace"])/1048578).toFixed(2) + 'MB',
+                "storageLimit": 'Storage Limit: ' + (this.storageLimit/1048576).toFixed(2) + ' MB',
+                "occupiedSpace": 'Occupied Space: ' + (this.occupiedSpace/1048576).toFixed(2) + ' MB',
+                "remainingSpace": 'Remaining Space: ' + (this.storageLimit/1048576).toFixed(2) + 'MB',
             }
         }).catch(err => {
 
